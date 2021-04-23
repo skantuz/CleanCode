@@ -27,4 +27,8 @@ public class ClientUseCase {
     public Client setClient(Client client){
         return clientRepository.setClient(client);
     }
+
+    public Client deleteClient(Client client){
+        return clientRepository.deleteClient(client);
+    }
 }

@@ -19,7 +19,7 @@ public class ClientStatic implements ClientRepository {
     @Override
     public Client getClient(String id) {
         Optional<Client> clientOptional = clients.stream()
-                .filter(client -> client.getId().equals(id))
+                .filter(client -> client.getId().equals(id)&&client.getActive())
                 .findFirst();
         if(clientOptional.isPresent()){
             return clientOptional.get();
@@ -47,12 +47,21 @@ public class ClientStatic implements ClientRepository {
 
     @Override
     public List<Client> listClients() {
-        return clients;
+        return clients.stream()
+                .filter(Client::getActive)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Client setClient(Client client) {
         clients.add(client);
+        return client;
+    }
+
+    @Override
+    public Client deleteClient(Client client){
+        clients.stream().filter(c -> c.getId().equals(client.getId()))
+                .forEach(clientEdit -> clientEdit.setActive(Boolean.FALSE));
         return client;
     }
 }

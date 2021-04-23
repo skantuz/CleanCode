@@ -15,4 +15,6 @@ public interface ClientRepository {
     List<Client> listClients();
 
     Client setClient(Client client);
+
+    Client deleteClient(Client client);
 }
