@@ -15,7 +15,7 @@ public class ClientStatic implements ClientRepository {
 
     @Override
     public Client getClient(String id) {
-        
+        return null;
     }
 
     @Override
