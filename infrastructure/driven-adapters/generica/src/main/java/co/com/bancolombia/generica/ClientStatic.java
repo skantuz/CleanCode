@@ -4,6 +4,9 @@ import co.com.bancolombia.model.client.Client;
 import co.com.bancolombia.model.client.gateways.ClientRepository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ClientStatic implements ClientRepository {
 
@@ -15,7 +18,31 @@ public class ClientStatic implements ClientRepository {
 
     @Override
     public Client getClient(String id) {
-        return null;
+        Optional<Client> clientOptional = clients.stream()
+                .filter(client -> client.getId().equals(id))
+                .findFirst();
+        if(clientOptional.isPresent()){
+            return clientOptional.get();
+        }else{
+            throw new RuntimeException("CLiente No Existe");
+        }
+    }
+
+    @Override
+    public List<Client> findByName(String name){
+        List<Client> result = clients.stream()
+                .filter(client -> client.getName().equals(name))
+                .collect(Collectors.toList());
+        if(result.size()>0) {
+            return result;
+        }else{
+            StringBuilder msg =new StringBuilder();
+            msg.append("CLiente con nombre ");
+            msg.append(name);
+            msg.append("No Existe");
+            throw new RuntimeException(msg.toString());
+        }
+
     }
 
     @Override

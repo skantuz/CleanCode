@@ -9,6 +9,10 @@ import java.util.List;
 public interface ClientRepository {
 
     Client getClient(String id);
+
+    List<Client> findByName(String name);
+
     List<Client> listClients();
+
     Client setClient(Client client);
 }

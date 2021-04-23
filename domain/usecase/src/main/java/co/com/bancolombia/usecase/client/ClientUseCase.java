@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+
 @RequiredArgsConstructor
 public class ClientUseCase {
 
@@ -17,6 +18,10 @@ public class ClientUseCase {
 
     public List<Client> listClient(){
         return clientRepository.listClients();
+    }
+
+    public List<Client> findByName(String name){
+        return clientRepository.findByName(name);
     }
 
     public Client setClient(Client client){
