@@ -10,3 +10,5 @@ include ':generica'
 project(':generica').projectDir = file('./infrastructure/driven-adapters/generica')
 include ':api-rest'
 project(':api-rest').projectDir = file('./infrastructure/entry-points/api-rest')
+include ':jpa'
+project(':jpa').projectDir = file('./infrastructure/driven-adapters/jpa')
