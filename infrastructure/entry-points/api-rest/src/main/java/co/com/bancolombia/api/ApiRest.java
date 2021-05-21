@@ -35,7 +35,7 @@ public class ApiRest {
         if(Objects.nonNull(name)){
             clients=clientUseCase.findByName(name);
         }else{
-            clients=clientUseCase.listClient(page,2,sort);
+            clients=clientUseCase.listClient(page,10,sort);
         }
 
         return clients.stream()

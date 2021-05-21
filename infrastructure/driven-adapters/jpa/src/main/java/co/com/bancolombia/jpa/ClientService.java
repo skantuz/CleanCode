@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,14 +24,14 @@ public class ClientService implements ClientRepository {
 
     @Override
     public Client getClient(String id) {
-        Optional<ClientsDto> clientsDto = clientDtoRepository.findById(Long.getLong(id));
+        Optional<ClientsDto> clientsDto = clientDtoRepository.findById(Integer.parseInt(id));
         if (clientsDto.isPresent()) {
             return ClientDtoToClient.getClient(clientsDto.get());
         }
-        return getClient("ID ".concat(id));
+        return getException("ID ".concat(id));
     }
 
-    private void getException(String message) {
+    private Client getException(String message) {
         throw new ExceptionClient("Cliente con ".concat(message).concat(" no existe"),
                 "Cliente No Existe",
                 404,
@@ -62,10 +63,11 @@ public class ClientService implements ClientRepository {
 
     @Override
     public Client deleteClient(Client client) {
-        Optional<ClientsDto> clientsDto = clientDtoRepository.findById(Long.getLong(client.getId()));
+        Optional<ClientsDto> clientsDto = clientDtoRepository.findById(Integer.parseInt(client.getId()));
         if (clientsDto.isPresent()) {
             ClientsDto dto = clientsDto.get();
             dto.setActive(false);
+            dto.setUpdatedAt(LocalDateTime.now());
             return ClientDtoToClient.getClient(clientDtoRepository.save(dto));
         }
         throw new ExceptionClient("CLiente No existe" + client, "Cliente No existe",
