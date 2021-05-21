@@ -22,12 +22,20 @@ public class ApiRest {
     private final ClientUseCase clientUseCase;
 
     @GetMapping(value = "/client")
-    public List<ClientDto> listClient(@PathParam("name") String name) {
+    public List<ClientDto> listClient(@PathParam("name") String name,
+                                      @PathParam("page") Integer page,
+                                      @PathParam("sort") String sort) {
+        if(Objects.isNull(page)){
+            page = 0;
+        }
+        if(Objects.isNull(sort)){
+            sort = "createdAt";
+        }
         List<Client> clients;
         if(Objects.nonNull(name)){
             clients=clientUseCase.findByName(name);
         }else{
-            clients=clientUseCase.listClient();
+            clients=clientUseCase.listClient(page,2,sort);
         }
 
         return clients.stream()

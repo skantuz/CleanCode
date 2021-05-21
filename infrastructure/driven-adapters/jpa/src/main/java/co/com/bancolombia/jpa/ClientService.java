@@ -8,8 +8,9 @@ import co.com.bancolombia.model.client.Client;
 import co.com.bancolombia.model.client.gateways.ClientRepository;
 import co.com.bancolombia.model.config.ExceptionClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,18 +24,19 @@ public class ClientService implements ClientRepository {
     @Override
     public Client getClient(String id) {
         Optional<ClientsDto> clientsDto = clientDtoRepository.findById(Long.getLong(id));
-        if (clientsDto.isPresent()){
+        if (clientsDto.isPresent()) {
             return ClientDtoToClient.getClient(clientsDto.get());
         }
         return getClient("ID ".concat(id));
     }
 
-    private void getException(String message){
+    private void getException(String message) {
         throw new ExceptionClient("Cliente con ".concat(message).concat(" no existe"),
                 "Cliente No Existe",
                 404,
-                "El CLiente no existe","EC404");
+                "El CLiente no existe", "EC404");
     }
+
     @Override
     public List<Client> findByName(String name) {
         return clientDtoRepository.findByNameStartingWith(name).stream()
@@ -43,9 +45,10 @@ public class ClientService implements ClientRepository {
     }
 
     @Override
-    public List<Client> listClients() {
-        Iterable<ClientsDto> clientsDto = clientDtoRepository.findAll();
-        return StreamSupport.stream(clientsDto.spliterator(),false)
+    public List<Client> listClients(Integer page, Integer pageSize, String sort) {
+
+        Iterable<ClientsDto> clientsDto = clientDtoRepository.findAll(PageRequest.of(page,pageSize,Sort.by(sort)));
+        return StreamSupport.stream(clientsDto.spliterator(), false)
                 .filter(ClientsDto::getActive)
                 .map(ClientDtoToClient::getClient)
                 .collect(Collectors.toList());
@@ -65,7 +68,7 @@ public class ClientService implements ClientRepository {
             dto.setActive(false);
             return ClientDtoToClient.getClient(clientDtoRepository.save(dto));
         }
-        throw new ExceptionClient("CLiente No existe"+client,"Cliente No existe",
-                204,"Este cliente no existe","EC-204");
+        throw new ExceptionClient("CLiente No existe" + client, "Cliente No existe",
+                204, "Este cliente no existe", "EC-204");
     }
 }

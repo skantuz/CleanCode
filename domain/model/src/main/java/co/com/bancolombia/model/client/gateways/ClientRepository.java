@@ -12,7 +12,7 @@ public interface ClientRepository {
 
     List<Client> findByName(String name);
 
-    List<Client> listClients();
+    List<Client> listClients(Integer page,Integer pageSize,String sort);
 
     Client setClient(Client client);
 

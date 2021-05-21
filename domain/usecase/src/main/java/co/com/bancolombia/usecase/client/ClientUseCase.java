@@ -16,8 +16,8 @@ public class ClientUseCase {
         return  clientRepository.getClient(id);
     }
 
-    public List<Client> listClient(){
-        return clientRepository.listClients();
+    public List<Client> listClient(Integer page,Integer pageSize,String sort){
+        return clientRepository.listClients(page,pageSize,sort);
     }
 
     public List<Client> findByName(String name){

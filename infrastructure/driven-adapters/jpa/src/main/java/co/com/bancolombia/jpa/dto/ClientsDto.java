@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(schema = "propio",name ="clients")
+@Table(schema = "propio", name = "clients")
 @NoArgsConstructor
 public class ClientsDto {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "propio.client_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "propio.client_id_seq")
     private Integer id;
     @NotNull
     private String name;
@@ -22,9 +22,9 @@ public class ClientsDto {
     private String lastName;
     private String address;
     private String phone;
-    private Boolean active;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Boolean active = true;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public ClientsDto(String name, String lastName, String address, String phone) {
         this.name = name;

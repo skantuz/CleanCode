@@ -53,7 +53,7 @@ public class ClientStatic implements ClientRepository {
     }
 
     @Override
-    public List<Client> listClients() {
+    public List<Client> listClients(Integer page,Integer pageSize,String sort) {
         return clients.stream()
                 .filter(Client::getActive)
                 .collect(Collectors.toList());

@@ -1,11 +1,11 @@
 buildscript {
 	ext {
-        awssdk = '2.16.37'
+        awsSdk = '2.16.37'
 		cleanArchitectureVersion = '1.9.0'
-		springBootVersion = '2.4.2'
+		springBootVersion = '2.4.5'
 		sonarVersion = '3.0'
 		jacocoVersion = '0.8.5'
-        lombokVersion = '1.18.16'
+        lombokVersion = '1.18.20'
 	}
 }
 
