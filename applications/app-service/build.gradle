@@ -1,13 +1,15 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':jwt')
 	implementation project(':jpa')
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: '2.4.2'
 	implementation project(':api-rest')
 	implementation project(':generica')
     implementation project(':model')
     implementation project(':usecase')
-    compile 'org.springframework.boot:spring-boot-starter'
+    implementation "org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "com.fasterxml.jackson.core:jackson-databind:${fasterxml}"
     compile 'org.reactivecommons.utils:object-mapper:0.1.0'
     runtime('org.springframework.boot:spring-boot-devtools')
 }

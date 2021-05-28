@@ -1,6 +1,8 @@
 buildscript {
 	ext {
+        oauth0 = '3.15.0'
         awsSdk = '2.16.37'
+        fasterxml = '2.12.3'
 		cleanArchitectureVersion = '1.9.0'
 		springBootVersion = '2.4.5'
 		sonarVersion = '3.0'

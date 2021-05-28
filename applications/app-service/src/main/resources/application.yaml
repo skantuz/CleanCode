@@ -12,6 +12,9 @@ spring:
     url: "jdbc:postgresql://localhost:5432/pruebas"
     username: postgres
     password: 123456
+jwt:
+  issuer: Bancolombia
+  secret: Millave
 logging:
   level:
     co.com.bancolombia: "debug"
