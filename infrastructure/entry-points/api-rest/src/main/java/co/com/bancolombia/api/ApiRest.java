@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +22,7 @@ public class ApiRest {
 //    private final MyUseCase useCase;
     private final ClientUseCase clientUseCase;
 
+    @RolesAllowed({"USER"})
     @GetMapping(value = "/client")
     public List<ClientDto> listClient(@PathParam("name") String name,
                                       @PathParam("page") Integer page,
@@ -47,13 +49,14 @@ public class ApiRest {
     public ClientDto getClientById(@PathVariable("id") String id){
         return ClientToClientDto.getClientDto(clientUseCase.getClient(id));
     }
-
+    @RolesAllowed({"USER"})
     @PostMapping(value = "/client")
     public ClientDto postHello(@RequestBody ClientDto clientDto){
         Client client = ClientDtoToClient.getClient(clientDto);
         return ClientToClientDto.getClientDto(clientUseCase.setClient(client));
     }
 
+    @RolesAllowed({"ADMIN"})
     @DeleteMapping("/client/{id}")
     public ClientDto deleteClient(@PathVariable String id){
         Client client = clientUseCase.getClient(id);
