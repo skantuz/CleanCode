@@ -16,4 +16,8 @@ public class JwtTokenUseCase {
     public Boolean validateToken(JwtToken jwtToken) {
         return jwtTokenRepository.validateToken(jwtToken);
     }
+
+    public String getClaims(JwtToken jwtToken){
+        return jwtTokenRepository.getClaims(jwtToken);
+    }
 }

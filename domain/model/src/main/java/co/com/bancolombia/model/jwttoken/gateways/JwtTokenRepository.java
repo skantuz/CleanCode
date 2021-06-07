@@ -6,4 +6,5 @@ public interface JwtTokenRepository {
 
     JwtToken getJwtToken(String claims);
     Boolean validateToken(JwtToken jwtToken);
+    String getClaims(JwtToken jwtToken);
 }

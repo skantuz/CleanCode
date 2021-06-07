@@ -64,5 +64,15 @@ public class JwtService implements JwtTokenRepository {
             throw new ExceptionClient(e.getMessage(),"Unauthorized",401,"Token Expirado","EC-401");
         }
     }
+
+    @Override
+    public String getClaims(JwtToken jwtToken) {
+        JWTVerifier verification = JWT.require(Algorithm.HMAC256(secret)).build();
+        try {
+            return verification.verify(jwtToken.getJwt()).getClaims().toString();
+        }catch (TokenExpiredException e){
+            throw new ExceptionClient(e.getMessage(),"Unauthorized",401,"Token Expirado","EC-401");
+        }
+    }
 }
 
